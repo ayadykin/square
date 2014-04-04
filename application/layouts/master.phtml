@@ -1,0 +1,29 @@
+<html> 
+<head>    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div id="header">
+    <h3>Menu</h3>
+    <div id="menu">
+        <a href="<?php echo $this->url(array() , 'home'); ?>">Home</a>
+        <a href="<?php echo $this->url(array('page' => 'test') , 'static-content'); ?>">TEst</a>
+        <a href="<?php echo $this->url(array('page' => 'about') , 'static-content'); ?>">About</a>
+        <a href="<?php echo $this->url(array() , 'contact'); ?>">Contact</a>
+        <a href="<?php echo $this->url(array() , 'catalog-add'); ?>">Add</a>
+        <a href="<?php echo $this->url(array() , 'catalog-generate'); ?>">Generate</a>
+    </div>
+</div>
+<div id="content">
+    <h3>Content</h3>
+    <?php echo $this->layout()->content ?>
+</div>
+<div id="footer" >
+    <h3>List Db</h3>
+    <?php $db = Doctrine_Manager::connection()->import->listDataBases(); 
+    foreach($db as $d){
+        echo $d .'<br>';
+    }?>
+</div>
+</body>    
+</html>
