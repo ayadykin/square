@@ -1,3 +1,6 @@
 <h2>Country</h2>
 <?php echo $this->form; ?>
-<?php echo $this->id; ?>
+<?php $db = $this->country; 
+    foreach($db as $c){
+        echo $c['CountryID'].'-'.$c['CountryName'] .'<br>';
+    }?>

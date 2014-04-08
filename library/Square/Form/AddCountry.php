@@ -16,7 +16,7 @@ class Square_Form_AddCountry extends Zend_Form
         
         // create submit button
     $submit = new Zend_Form_Element_Submit('submit');
-    $submit->setLabel('Sub')
+    $submit->setLabel('Add country')
            ->setOptions(array('class' => 'submit'));
         
         $this->addElement($name)
