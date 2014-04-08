@@ -5,6 +5,7 @@ class Catalog_ItemController extends Zend_Controller_Action
   public function init()
   {
        $this->view->doctype('XHTML1_STRICT');
+      $this->view->country = Doctrine::getTable('Square_Model_Country')->findAll();
   }
 
   // action to display a catalog item
@@ -39,14 +40,23 @@ class Catalog_ItemController extends Zend_Controller_Action
       $form = new Square_Form_AddCountry();
       $this->view->form = $form;      
       if ($this->getRequest()->isPost()) {
-          $values = $form->getValues();
-          
-          $country = new Square_Model_Country();
-          $country->CountryName = $values['countryName'];
-          $this->view->id = $country->save();
-          
-          $this->_redirect('/catalog/add');
+           if ($form->isValid($this->getRequest()->getPost())) {
+              $values = $form->getValues();
+              $country = new Square_Model_Country();
+              $country->CountryName = $values['countryName'];
+              $this->view->id = $country->save();
+             $this->_helper->getHelper('FlashMessenger')->addMessage('Country '. $values['countryName'] .' add');
+             $this->_redirect('/catalog/success');
+          }
       }
+  }
+    public function successAction()
+  {
+    if ($this->_helper->getHelper('FlashMessenger')->getMessages()) {
+      $this->view->messages = $this->_helper->getHelper('FlashMessenger')->getMessages();    
+    } else {
+      $this->_redirect('/');    
+    } 
   }
     public function generateAction(){
       $this->view->g = Doctrine::generateModelsFromDb('tmp', array('doctrine'), array('classPrefix' => 'Square_Model_'));
